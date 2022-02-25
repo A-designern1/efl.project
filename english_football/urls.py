@@ -14,13 +14,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from leagues import views
+from django.urls import include, path
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('EPL/', views.getEPL),
-    path('EFLChampionship/', views.getEflChamp),
-    path('EFLLeagueOne/', views.getEfl_L1),
-    path('EFLLeagueTwo/', views.getEfl_L2),
-    path('NationalLeague/', views.getNL),
+    path('Leagues/', include('leagues.urls')),
 ]
