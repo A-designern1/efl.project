@@ -1,10 +1,11 @@
 from django.urls import path
 
-from . import views
+from . import views, views2
 
 urlpatterns = [
     path('404', views.NotFound),
-    path('<league_name>', views.getLeagues)
+    path('<league>/<team>', views2.getTeams),
+    path('<league>', views.getLeagues),
     # path('EPL/', views.getEPL),
     # path('EFL_Championship/', views.getEflChamp),
     # path('EFL_League_One/', views.getEfl_L1),
