@@ -10,16 +10,22 @@ league_names = {
             'EFL League One - EFL_League_One/    </br>   '
             'EFL League Two - EFL_League_Two/     </br> '
             'National League - National_League     </br>  ',
-    'EPL' : 'leagues/EPL.html',
+    'EPL/' : 'leagues/EPL.html',
 }
 Teams = {
-    'arsenal':'leagues/Arsenal.html'
+    'arsenal':'leagues/Teams.html'
+}
+victories={
+    "arsenal" : "Чемпион Англии - 13 раз",
 }
 def getTeams(request, league, team):
+    data_teams = {
+        "team": team,
+        "victories": victories[team]
+    }
     if team:
         if Teams.get(team):
-            url = Teams[team]
-            return HttpResponse(render_to_string(url))
+            return HttpResponse(render(request, 'leagues/Teams.html', context=data_teams))
     elif league_names.get(league):
         url = league_names[league]
         return HttpResponse(render_to_string(url))
