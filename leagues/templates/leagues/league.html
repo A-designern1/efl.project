@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EPL</title>
+</head>
+<body>
+EPL teams in alphabet order  </br>
+<lo>
+    {% for team in league_list %}
+       <l1>
+       <a href="Leagues/{{team.url}}" >{{team.name}}</a>  </br>
+       </l1>
+    {%endfor%}
+</lo>
+
+</body>
+</html>

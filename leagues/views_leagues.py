@@ -4,15 +4,53 @@ from django.http import HttpResponseNotFound, HttpResponseRedirect
 from django.template.loader import render_to_string
 # Create your views here.
 league_names = {
-    'EPL' : 'leagues/EPL.html',
+    'EPL' : [
+        {'name' : 'Arsenal', 'url' :'arsenal'},
+# 'Aston Villa',
+# 'Brentford',
+# 'Brighton',
+# 'Burnley',
+# 'Chelsea',
+# 'Crystal Palac',
+# 'Everton',
+# 'Leeds United',
+# 'Leicester City',
+# 'Liverpool',
+# 'Manchester City',
+# 'Manchester United',
+# 'Norwich City',
+# 'Southampton',
+# 'Tottenham Hotspur',
+# 'Watford',
+# 'West Ham United',
+# 'Wolverhampton Wanderers',
+    ],
+    'EFL_Championship' : 'EFL_Championship',
+    'EFL_League_One' : 'EFL_League_One',
+    'EFL_League_Two' : 'EFL_League_Two',
+    'National_League' : 'National_League'
 }
+leagues = [
+            'EPL',
+            'EFL_Championship',
+            'EFL_League_One',
+            'EFL_League_Two',
+            'National_League'
+]
+
 
 def Leagues(request):
-    return HttpResponse(render_to_string("leagues/leagues.html"))
+    data_league_list = {
+        'leagues' : leagues
+    }
+    return HttpResponse(render(request, 'leagues/leagues_list.html', context=data_league_list))
 def getLeagues(request, league):
-    if league_names.get(league):
-        url = league_names[league]
-        return HttpResponse(render_to_string(url))
+    if league in leagues:
+        data_leagues = {
+            'league' : league,
+            'league_list' : league_names[league],
+        }
+        return HttpResponse(render(request, 'leagues/league.html', context=data_leagues))
     else:
         return HttpResponseRedirect('404')
 
