@@ -12,20 +12,34 @@ league_names = {
             'National League - National_League     </br>  ',
     'EPL/' : 'leagues/league.html',
 }
-Teams = {
-    'arsenal':'leagues/Team.html'
-}
 
-victories={
-    "arsenal" : "Чемпион Англии - 13 раз",
+teams={
+    'arsenal' : {'name' : 'Arsenal', 'description': 'Арсенал лучший клуб в мире', 'victories' : "Чемпион Англии - 13 раз"},
+    'aston_villa' : {'name' : 'Aston Villa', 'victories' : ""},
+    'brentford': {'name' : 'Brentford', 'victories' : ""},
+    'brighton': {'name' : 'Brighton', 'victories' : ""},
+    'burnley': {'name' : 'Burnley', 'victories' : ""},
+    'chelsea': {'name' : 'Chelsea', 'victories' : ""},
+    'crystal_palac': {'name' : 'Crystal Palac', 'victories' : ""},
+    'everton': {'name' : 'Everton', 'victories' : ""},
+    'leeds_united': {'name' : 'Leeds United', 'victories' : ""},
+    'leicester_city': {'name' : 'Leicester City', 'victories' : ""},
+    'liverpool': {'name' : 'Liverpool', 'victories' : ""},
+    'manchester_city': {'name' : 'Manchester City', 'victories' : ""},
+    'manchester_united': {'name' : 'Manchester United', 'victories' : ""},
+    'norwich_city': {'name' : 'Norwich City', 'victories' : ""},
+    'southampton': {'name' : 'Southampton', 'victories' : ""},
+    'tottenham_hotspur': {'name' : 'Tottenham Hotspur', 'victories' : ""},
+    'watford': {'name' : 'Watford', 'victories' : ""},
+    'west_ham_united': {'name' : 'West Ham United', 'victories' : ""},
+    'wolverhampton_wanderers': {'name' : 'Wolverhampton Wanderers', 'victories' : ""},
 }
 def getTeams(request, league, team):
     data_teams = {
-        "team": team,
-        "victories": victories[team]
+        "team": teams[team]
     }
     if team:
-        if Teams.get(team):
+        if teams.get(team):
             return HttpResponse(render(request, 'leagues/Team.html', context=data_teams))
     elif league_names.get(league):
         url = league_names[league]

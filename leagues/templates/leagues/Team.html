@@ -2,10 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{team}}</title>
+    <title>{{team.name}}</title>
+    <style>
+        .description{
+            border: 2px solid red;
+        }
+    </style>
 </head>
 <body>
-<h1>{{team}}</h1>
-<p>{{victories}}</p>
+<h1>{{team.name}}</h1>
+<p class="description">{{team.description}}</p>
+<p>{{team.victories}}</p>
 </body>
 </html>
