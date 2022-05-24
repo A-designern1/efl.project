@@ -7,11 +7,12 @@
 <body>
 {{league}} teams in alphabet order  </br>
 <lo>
-    {% for team in league_list %}
+    {% for team_name in league_list %}
        <l1>
-       <a href="Leagues/{{team.url}}" >{{team.name}}</a>  </br>
+       <a href="Leagues/{{team_name}}" >{{team_name}}</a>  </br>
        </l1>
     {%endfor%}
+
 </lo>
 
 </body>

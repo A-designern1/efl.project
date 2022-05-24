@@ -3,57 +3,101 @@ from django.http import HttpResponse
 from django.http import HttpResponseNotFound, HttpResponseRedirect
 from django.template.loader import render_to_string
 # Create your views here.
-league_names = {
-    'EPL' : [
-        {'name' : 'Arsenal', 'url' :'arsenal'},
-        {'name' : 'Aston Villa', 'url' : 'aston_villa'},
-        {'name' : 'Brentford', 'url' : 'brentford'},
-        {'name' : 'Brighton', 'url' : 'brighton'},
-        {'name' : 'Burnley', 'url' : 'burnley'},
-        {'name' : 'Chelsea', 'url' : 'chelsea'},
-        {'name' : 'Crystal Palac', 'url' : 'crystal_palac'},
-        {'name' : 'Everton', 'url' : 'everton'},
-        {'name' : 'Leeds United', 'url' : 'leeds_united'},
-        {'name' : 'Leicester City', 'url' : 'leicester_city'},
-        {'name' : 'Liverpool', 'url' : 'liverpool'},
-        {'name' : 'Manchester City', 'url' : 'manchester_city'},
-        {'name' : 'Manchester United', 'url' : 'manchester_united'},
-        {'name' : 'Norwich City', 'url' : 'norwich_city'},
-        {'name' : 'Southampton', 'url' : 'southampton'},
-        {'name' : 'Tottenham Hotspur', 'url' : 'tottenham_hotspur'},
-        {'name' : 'Watford', 'url' : 'watford'},
-        {'name' : 'West Ham United', 'url' : 'west_ham_united'},
-        {'name' : 'Wolverhampton Wanderers', 'url' : 'wolverhampton_wanderers'},
-    ],
-    'EFL_Championship' : 'EFL_Championship',
-    'EFL_League_One' : 'EFL_League_One',
-    'EFL_League_Two' : 'EFL_League_Two',
-    'National_League' : 'National_League'
-}
-leagues = [
-            'EPL',
-            'EFL_Championship',
-            'EFL_League_One',
-            'EFL_League_Two',
-            'National_League'
-]
+from leagues.forms import *
+#
+# league_names = {
+#     'EPL' : [
+#         {'name' : 'Arsenal', 'url' :'arsenal'},
+#         {'name' : 'Aston Villa', 'url' : 'aston_villa'},
+#         {'name' : 'Brentford', 'url' : 'brentford'},
+#         {'name' : 'Brighton', 'url' : 'brighton'},
+#         {'name' : 'Burnley', 'url' : 'burnley'},
+#         {'name' : 'Chelsea', 'url' : 'chelsea'},
+#         {'name' : 'Crystal Palac', 'url' : 'crystal_palac'},
+#         {'name' : 'Everton', 'url' : 'everton'},
+#         {'name' : 'Leeds United', 'url' : 'leeds_united'},
+#         {'name' : 'Leicester City', 'url' : 'leicester_city'},
+#         {'name' : 'Liverpool', 'url' : 'liverpool'},
+#         {'name' : 'Manchester City', 'url' : 'manchester_city'},
+#         {'name' : 'Manchester United', 'url' : 'manchester_united'},
+#         {'name' : 'Norwich City', 'url' : 'norwich_city'},
+#         {'name' : 'Southampton', 'url' : 'southampton'},
+#         {'name' : 'Tottenham Hotspur', 'url' : 'tottenham_hotspur'},
+#         {'name' : 'Watford', 'url' : 'watford'},
+#         {'name' : 'West Ham United', 'url' : 'west_ham_united'},
+#         {'name' : 'Wolverhampton Wanderers', 'url' : 'wolverhampton_wanderers'},
+#     ],
+#     'EFL_Championship' : 'EFL_Championship',
+#     'EFL_League_One' : 'EFL_League_One',
+#     'EFL_League_Two' : 'EFL_League_Two',
+#     'National_League' : 'National_League'
+# }
+# leagues = [
+#             'EPL',
+#             'EFL_Championship',
+#             'EFL_League_One',
+#             'EFL_League_Two',
+#             'National_League'
+# ]
 
+def openHomePage(request):
+    return HttpResponse(render_to_string('leagues/home_page.html'))
+
+def addUser(request):
+    if request.method == 'POST':
+        form = AddUserForm(request.POST)
+        print(request.POST)
+        if form.is_valid():
+            try:
+                form.save()
+            except:
+                print('something went wrong')
+    else:
+        form = AddUserForm()
+    return render(request, 'leagues/add_user.html', {'form': form})
 
 def Leagues(request):
-    data_league_list = {
-        'leagues' : leagues
-    }
-    return HttpResponse(render(request, 'leagues/leagues_list.html', context=data_league_list))
-def getLeagues(request, league):
-    if league in leagues:
-        data_leagues = {
-            'league' : league,
-            'league_list' : league_names[league],
-        }
-        return HttpResponse(render(request, 'leagues/league.html', context=data_leagues))
-    else:
-        return HttpResponseRedirect('404')
+    leagues = League.objects.all()
+    return render(request, 'leagues/leagues_list.html', {"leagues": leagues})
+# def getLeagues(request, league):
+#     leagues = League.objects.all()
+#     if league in leagues:
+#         return render(request, 'leagues/leagues_list.html', {"leagues": leagues})
+#     else:
+#         return HttpResponseRedirect('404')
 
+def addLeague(request):
+    if request.method == 'POST':
+        form = AddLeagueForm(request.POST)
+        print(request.POST)
+        if form.is_valid():
+            try:
+                form.save()
+            except:
+                print('something went wrong')
+    else:
+        form = AddLeagueForm()
+    return render(request, 'leagues/add_league.html', {'form': form})
+
+def getTeams(request):
+    teams = Team.objects.all()
+    return render(request, 'leagues/league.html', {"teams": teams})
+
+def addTeam(request):
+    if request.method == 'POST':
+        form = AddTeamForm(request.POST)
+        if form.is_valid():
+            try:
+                form.save()
+            except:
+                print('something went wrong')
+    else:
+        form = AddTeamForm()
+    return render(request, 'leagues/add_team.html', {'form': form})
+
+def getUser(request):
+    users = User.objects.all()
+    return render(request, 'leagues/get_user.html', {"users": users})
 
 def NotFound(request):
     return HttpResponse(render_to_string('leagues/404.html'))

@@ -6,13 +6,15 @@
 </head>
 <body>
 <h1>English Leagues</h1>
-'the first one is the strongest and the last one is the weakest'
+'the first one is the strongest and the last one is the weakest'  <br/>
 <lo>
-    {% for league in leagues%}
-       <l1>
-       <a href="Leagues/{{league}}" >{{league}}</a>  </br>
-       </l1>
-    {%endfor%}
+<!--    {{ leagues.league_name }}-->
+      {% for i in leagues %}
+    <p> {{ i.league_name }}</p> <br/>
+    <p> {{ i.description }}</p> <br/>
+    <p> {{ i.quantity_of_teams }}</p> <br/>
+
+    {% endfor %}
 </lo>
 </body>
 </html>
