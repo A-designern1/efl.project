@@ -24,6 +24,8 @@ urlpatterns = [
     path('add_league/', views.addLeague, name='add_league'),
     path('add_team/', views.addTeam, name='add_team'),
     path('add_user/', views.addUser, name='add_user'),
+    path('get_users/', views.getUser, name = 'get_user'),
+    path('get_teams/', views.getTeams, name = 'get_team'),
     path('Leagues', views.Leagues, name='get_leagues'),
     path('admin/', admin.site.urls),
     path('Leagues/', include('leagues.urls')),

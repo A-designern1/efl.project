@@ -81,7 +81,7 @@ def addLeague(request):
 
 def getTeams(request):
     teams = Team.objects.all()
-    return render(request, 'leagues/league.html', {"teams": teams})
+    return render(request, 'leagues/get_team.html', {"teams": teams})
 
 def addTeam(request):
     if request.method == 'POST':
